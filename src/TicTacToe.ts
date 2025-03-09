@@ -1,6 +1,9 @@
+import ReactBoardView from "./ReactBoardView";
+
 class TicTacToe {
-  private board: string[][];
+  public board: string[][];
   private currentPlayer: string;
+  private view: ReactBoardView | null;
 
   constructor() {
     this.board = [
@@ -9,6 +12,16 @@ class TicTacToe {
       ["", "", ""],
     ];
     this.currentPlayer = "X";
+    this.view = null;
+  }
+
+  setView(view: ReactBoardView): void {
+    this.view = view;
+  }
+  display(): void {
+    if (this.view) {
+      this.view.display(this);
+    }
   }
 
   // is this what the addplayer should look like?
@@ -91,10 +104,14 @@ class TicTacToe {
     } else {
       this.currentPlayer = "X";
     }
+    this.display();
   }
 
   getPlayer(row: number, col: number): string {
     return this.board[row][col];
+  }
+  getBoard() {
+    return this.board;
   }
 
   newGame(): void {
@@ -104,6 +121,7 @@ class TicTacToe {
       ["", "", ""],
     ];
     this.currentPlayer = "X";
+    this.display();
   }
 }
 
